@@ -1,1 +1,0 @@
-# Racket First steps
