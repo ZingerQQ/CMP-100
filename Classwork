@@ -1,0 +1,34 @@
+;intervalSumHELPER: number number number -> number 
+;Computes the sum of the numbers in the given numbers interval
+
+(check-expect (intervalSum 0 10) 55) 
+(check-expect (intervalSum -5 5) 0 )
+(check-expect (intervalSum 10 0) 55)
+(define (intervalSumHELPER firstValue secondValue accumulatingAnswer)
+ (cond 
+  [(> firstValue secondValue) accumulatingAnswer] 
+  [else (intervalSumHELPER (+ firstValue 1) secondValue (+ firstValue accumulatingAnswer))]))
+
+(define (intervalSum firstValue secondValue) 
+ (cond 
+  [(= firstValue secondValue) (error "No Interval")]
+  [(> firstValue secondValue) (intervalSum secondValue firstValue)]
+  [else (intervalSumHELPER firstValue secondValue 0)]))
+
+;biggestDivisorHELPER: number number number -> number
+;takes two integer firstValue and secondValue then calculates their greatest common divisor. 
+
+(check-expect (biggestDivisor 12 8) 4)
+(check-expect (biggestDivisor 54 24) 6)
+(check-expect (biggestDivisor 13 7) 1)
+
+(define (biggestDivisorHELPER firstValue secondValue accumulatingAnswer accumulatingDivisor)
+(cond
+ [(= accumulatingDivisor firstValue) accumulatingAnswer]
+ [(> accumulatingDivisor (/ secondValue 2)) accumulatingAnswer]
+ [(and (integer? (/ firstValue accumulatingDivisor)) (integer? (/ secondValue accumulatingDivisor))) (biggestDivisorHELPER (/ firstValue accumulatingDivisor) (/ secondValue accumulatingDivisor) (* accumulatingAnswer accumulatingDivisor) accumulatingDivisor)]
+ [else (biggestDivisorHELPER firstValue secondValue accumulatingAnswer (+ 1 accumulatingDivisor))]))
+
+(define (biggestDivisor firstValue secondValue)
+(biggestDivisorHELPER firstValue secondValue 1 2))
+ 
