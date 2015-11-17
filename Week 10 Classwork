@@ -1,0 +1,41 @@
+;1
+;takes the number grade and returns the corresponding letter grade
+;findLetterGrade-> number -> string
+
+(check-expect (findLetterGrade 86) "PASS")
+(check-expect (findLetterGrade 57) "PROBATION")
+(check-expect (findLetterGrade 43) "FAIL")
+
+(define (findLetterGrade numberGrade)
+(cond
+[(>= numberGrade 70) "PASS"]
+[(< numberGrade 50) "FAIL"]
+[else "PROBATION"]))
+
+;2
+;takes the number of hours worked during a month, and computes the amount to be paid to the worker.
+;payment-> number -> number
+
+(check-expect (payment 100) 355)
+(check-expect (payment 200)  780)
+
+(define (payment hours)
+  (- (* 4.25 hours) 70))
+
+;3
+
+
+;4
+;calculates the repeat count of a number in a list of numbers.
+;repeatCount-> list number -> number
+
+(check-expect (repeatCount (list 3 4 5 3 7 3) 3) 3)
+(check-expect (repeatCount (list 4 3 1) 5) 0)
+(check-expect (repeatCount (list 9 2 8) 9) 1)
+
+(define (repeatCount myList item)
+ (cond
+  [(empty? myList) 0]
+  [(= item (first myList)) (+ 1 (repeatCount (rest myList) item))]
+  [else (repeatCount (rest myList) item)]))                         
+   
