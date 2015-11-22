@@ -23,7 +23,8 @@
   (- (* 4.25 hours) 70))
 
 ;3
-
+;computes the result of a specifc series(series is given)
+;series-> number number -> number
 
 ;4
 ;calculates the repeat count of a number in a list of numbers.
@@ -37,5 +38,4 @@
  (cond
   [(empty? myList) 0]
   [(= item (first myList)) (+ 1 (repeatCount (rest myList) item))]
-  [else (repeatCount (rest myList) item)]))                         
-   
+  [else (repeatCount (rest myList) item)])) 
