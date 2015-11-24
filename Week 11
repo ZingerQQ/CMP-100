@@ -1,0 +1,23 @@
+;Address structre
+(define-struct Address (name city))
+;example Address
+(define myAddressBook
+ (list
+ (make-Address "ali" "ankara")
+ (make-Address "ayşe" "istanbul")
+ (make-Address "berk" "ankara")))
+   
+;takes an address book and name of a city, and returns how many of the people in the address book lives in that city.
+;countCity -> Address string -> number
+
+(check-expect (countCity myAddressBook "ankara") 2)
+(check-expect (countCity myAddressBook "istanbul") 1)
+
+(define (countCity AddressBook city)
+ (cond
+  [(empty? AddressBook) 0]
+  [(equal? city (Address-city (first AddressBook))) (+ 1 (countCity (rest AddressBook) city))]
+  [else (countCity (rest AddressBook) city)]))
+
+;takes two lists as arguments, and returns a list which blends the two lists by taking one element from each in turns. If one list runs out, it continues with the elements in the other list.
+;combine -> list list -> list
