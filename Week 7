@@ -4,6 +4,7 @@
 (check-expect (intervalSum 0 10) 55) 
 (check-expect (intervalSum -5 5) 0 )
 (check-expect (intervalSum 10 0) 55)
+
 (define (intervalSumHELPER firstValue secondValue accumulatingAnswer)
  (cond 
   [(> firstValue secondValue) accumulatingAnswer] 
@@ -31,4 +32,3 @@
 
 (define (biggestDivisor firstValue secondValue)
 (biggestDivisorHELPER firstValue secondValue 1 2))
- 
