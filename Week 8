@@ -1,0 +1,30 @@
+;posNegative: list number-> number
+;computes the difference between the number of positive numbers in the list and the number of negative numbers in the list.
+
+(check-expect (posNegative empty) 0)
+(check-expect (posNegative (cons 1 empty)) 1)
+(check-expect (posNegative (cons -1 (cons 1 (cons -2 empty)))) -1)
+
+
+(define (posNegativeHELPER n acc)
+ (cond
+   [(empty? n) acc]
+   [(positive? (first n)) (posNegativeHELPER (rest n) (+ acc 1))]
+   [else (posNegativeHELPER (rest n) (- acc 1))]))
+
+(define (posNegative n)
+  (posNegativeHELPER n 0))
+
+;orList: list-> boolean
+;consumes a list of booleans and determines whether one of them is true
+
+(check-expect (orList empty) false)
+(check-expect (orList (cons true (cons false empty))) true)
+(check-expect (orList (cons false (cons false empty))) false)
+
+(define (orList n)
+ (cond
+  [(empty? n) false]
+  [(not (false? (first n))) true]
+  [else (orList (rest n))]))
+   
