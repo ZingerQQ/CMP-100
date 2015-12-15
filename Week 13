@@ -1,0 +1,47 @@
+;helper function for the function closest
+;closestHELPER -> list number number -> number
+
+(check-expect (closest (list 2 1 7 3) 8) 7)
+(check-expect (closest (list -3 5 -8 6) -5) -3)
+
+
+(define (closestHELPER myList n acc)
+ (cond
+  [(empty? myList) acc]
+  [(<= (abs (- n (first myList))) (- n acc)) (closestHELPER (rest myList) n (first myList))]
+  [else (closestHELPER  (rest myList) n acc)]))
+
+;takes a list of numbers, and a value as inputs and finds the number in the list which is closest to the given value.
+;closest -> list number -> number
+
+(check-expect (polynomial (list 1 2 3 4) 2) 49)
+(check-expect (polynomial (list 8 5 7 3) 3) 167)
+
+(define (closest myList n)
+  (closestHELPER myList n (first myList)))
+
+;helper function for the function polynomial
+;polynomialHELPER -> list number number -> number
+
+(define (polynomialHELPER myList n step)
+ (cond
+  [(empty? myList) 0]
+  [else (+ (* (expt n step) (first myList)) (polynomialHELPER (rest myList) n (+ step 1)))]))
+
+;computes the value of a polynomial (polynomial is given&set)
+;polynomial -> list number
+
+(define (polynomial myList n)
+  (polynomialHELPER myList n 0))
+
+;computes the solution of a function (function is given&set)
+;f -> number -> number
+
+(check-expect (f (/ 1 2)) 1)
+(check-expect (f 3) (/ 3 2))
+
+(define (f n)
+ (cond
+  [(< n 0) (error "undefined")]
+  [(and (>= n 0) (<= n 1)) 1]
+  [else (/ (+ (f (- n 1)) (f (- n 2))) (f (- n 1)))]))
