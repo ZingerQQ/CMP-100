@@ -1,0 +1,5 @@
+;structre for the following functions
+(define-struct Person (name age gender))
+ 
+(check-expect (findOlder (list (make-Person "ali" 18 "male") (make-Person "ayse" 19 "female")) 19) (list (make-Person "ayse" 19 "female")))
+(check-expect (findOlder (list (make-Person "ali" 18 "male") (make-Person "ayse" 19 "female")) 18) (list (make-Person "ali" 18 "male") (make-Person "ayse" 19 "female")))  
