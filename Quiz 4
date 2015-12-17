@@ -1,0 +1,17 @@
+(define-struct bst (carbon country-name left right))
+(define country-emissions-example (make-bst 9.3 "Germany" 
+                            (make-bst 4.7 "Turkey" false false)
+                            (make-bst 17.3 "Australia" 
+                                      (make-bst 16.8 "Saudi Arabia" false false)
+                                      (make-bst 15 "New Zealand" false false))))
+;Contract: tree-depth: bst --> integer
+;Description: Finds and returns the depthe of the given binary search tree
+(check-expect (tree-depth country-emissions-example) 3)
+(check-expect (tree-depth false) 0)
+
+(define (tree-depth t)
+  (cond
+   [(equal? t false) 0]
+   [(equal? (bst-right t) false) (+ 1 (tree-depth (bst-left t)))]
+   [(equal? (bst-left t) false) (+ 1 (tree-depth (bst-right t)))]
+   [else  (+ 0 (tree-depth (bst-left t)) (tree-depth (bst-right t)))]))
