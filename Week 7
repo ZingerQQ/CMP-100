@@ -22,12 +22,13 @@
 (check-expect (biggestDivisor 12 8) 4)
 (check-expect (biggestDivisor 54 24) 6)
 (check-expect (biggestDivisor 13 7) 1)
+(check-expect (biggestDivisor 12 24) 12)
+(check-expect (biggestDivisor 33 33) 33)
 
 (define (biggestDivisorHELPER firstValue secondValue accumulatingAnswer accumulatingDivisor)
 (cond
- [(= accumulatingDivisor firstValue) accumulatingAnswer]
- [(> accumulatingDivisor (/ secondValue 2)) accumulatingAnswer]
  [(and (integer? (/ firstValue accumulatingDivisor)) (integer? (/ secondValue accumulatingDivisor))) (biggestDivisorHELPER (/ firstValue accumulatingDivisor) (/ secondValue accumulatingDivisor) (* accumulatingAnswer accumulatingDivisor) accumulatingDivisor)]
+ [(or (<= firstValue accumulatingDivisor) (<= secondValue accumulatingDivisor)) accumulatingAnswer]
  [else (biggestDivisorHELPER firstValue secondValue accumulatingAnswer (+ 1 accumulatingDivisor))]))
 
 (define (biggestDivisor firstValue secondValue)
