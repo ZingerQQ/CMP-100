@@ -1,5 +1,26 @@
 ;structre for the following functions
 (define-struct Person (name age gender))
- 
+
+;takes a list of Person values, and a number as age limit, and returns the people in the list whose age is greater than or equal to the given age.
+;findOlder -> list number -> Person
+
 (check-expect (findOlder (list (make-Person "ali" 18 "male") (make-Person "ayse" 19 "female")) 19) (list (make-Person "ayse" 19 "female")))
-(check-expect (findOlder (list (make-Person "ali" 18 "male") (make-Person "ayse" 19 "female")) 18) (list (make-Person "ali" 18 "male") (make-Person "ayse" 19 "female")))  
+(check-expect (findOlder (list (make-Person "ali" 18 "male") (make-Person "ayse" 19 "female")) 18) (list (make-Person "ali" 18 "male") (make-Person "ayse" 19 "female")))
+
+(define (findOlder l age)
+  (cond
+    [(empty? l) (list)]
+    [(>= (Person-age (first l)) age) (list* (first l) (findOlder (rest l) age))]
+    [else (findOlder (rest l) age)]))
+
+;function 2
+;f -> number -> number
+
+(check-expect (f 2) 3)
+
+ (define (f n)
+  (cond
+    [(<= n 0) (error "undefined")]
+    [(= n 1) 1]
+    [(> (f (- n 1)) n) (- n (f (- n 1)))]
+    [else (+ n (f (- n 1)))]))
