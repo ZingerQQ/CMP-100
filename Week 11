@@ -1,12 +1,15 @@
 ;Address structre
+
 (define-struct Address (name city))
+
 ;example Address
+
 (define myAddressBook
- (list
- (make-Address "ali" "ankara")
- (make-Address "ayşe" "istanbul")
- (make-Address "berk" "ankara")))
-   
+(list
+(make-Address "ali" "ankara")
+(make-Address "ayşe" "istanbul")
+(make-Address "berk" "ankara")))
+
 ;takes an address book and name of a city, and returns how many of the people in the address book lives in that city.
 ;countCity -> Address string -> number
 
@@ -19,25 +22,18 @@
   [(equal? city (Address-city (first AddressBook))) (+ 1 (countCity (rest AddressBook) city))]
   [else (countCity (rest AddressBook) city)]))
 
+
 ;takes two lists as arguments, and returns a list which blends the two lists by taking one element from each in turns. If one list runs out, it continues with the elements in the other list.
 ;combine -> list list -> list
 
 (check-expect (comb (list 1 1) (list 2 2 7 3)) (list 1 2 1 2 7 3))
 (check-expect (comb (list 1 2 3) (list 4 5 6)) (list 1 4 2 5 3 6))
 
-(define (combHELPER list1 list2 acc)
- (cond
-  [(empty? list1) (cons acc (cons list2 (list)))]
-  [(empty? list2) (cons acc (cons list1 (list)))]
-  [else (combHELPER (rest list1) (rest list2) (cons (first list1) (cons (first list2) (list))))]))
-
 (define (comb list1 list2)
-  (combHELPER list1 list2 (list)))
+  (cond
+    [(and (empty? list1) (empty? list2)) (list)]
+    [(empty? list1) list2]
+    [(empty? list2) list1]
+    [else (cons (first list1) (cons (first list2) (comb (rest list1) (rest list2))))]))
 
-;takes a list and a logical function as inputs and returns two lists: first containing values in the original list which return true when the function applied, and the other containing remaining values.
-;classify -> list function -> list list
 
-;(check-expect (classify (list 1 2 3 4.5 6) integer?) (list (list 1 2 3 6) (list 4.5)))
-;(check-expect (classify (list 1 2 3 4 5 6) even?) (list (list 2 4 6) (list 1 3 5)))
-
-;(define 
